@@ -63,4 +63,4 @@ const TASKS = {
 /* PROVA — questo indirizzo sostituisce quello di tutti i task, così
    si può vedere il comportamento dell'overlay sopra un sito vero.
    Rimetti la stringa vuota prima del test con i partecipanti. */
-const OVERRIDE_URL = "https://www.youtube.com/embed/aqz-KE-bpKQ";
+const OVERRIDE_URL = "https://www.openstreetmap.org/export/embed.html?bbox=9.15,45.44,9.22,45.49";
