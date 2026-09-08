@@ -10,36 +10,92 @@
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* posizione di partenza del bottone flottante */
+      /* posizione del bottone flottante */
       --fab-top: 12px;
       --fab-left: 13.6%;
+      --bg: #F3F6F7;
       --ink: #1c1f26;
       --body: #33352f;
+      --gold: #c0a05a;
       --muted: #6f6a5e;
       --rule: #ddd8cc;
-      --gold: #c0a05a;
     }
     * { box-sizing: border-box; }
     html { font-size: 15px; }
     html, body { height: 100%; margin: 0; }
     body {
+      background: var(--bg);
+      color: var(--body);
       font-family: "Jost", system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
-      color: var(--body);
-      background: #eceff0;
-      overflow: hidden;
     }
 
-    /* livello 0 — il sito da testare */
-    #site { width: 100vw; height: 100vh; border: 0; display: block; }
+    /* ---------- schermata istruzioni ---------- */
+    .intro-wrap { display: flex; justify-content: center; padding: 4.5rem 1.5rem 5rem; }
+    .intro { width: 100%; max-width: 620px; }
+    .counter { font-size: 0.95rem; color: #9a9488; letter-spacing: 1px; margin: 0 0 1.6rem; }
+    h1 {
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      margin: 0 0 2.2rem;
+    }
+    .scenario {
+      background: #e7e9e8;
+      border-radius: 0.9rem;
+      padding: 1.5rem 1.6rem;
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: #3b3d38;
+      margin-bottom: 2.4rem;
+    }
+    .activity + .activity { border-top: 1px solid var(--rule); margin-top: 1.9rem; padding-top: 1.9rem; }
+    .tag {
+      display: inline-block;
+      background: #e2e4e3;
+      color: #6f6a5e;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      padding: 0.28rem 0.6rem;
+      border-radius: 0.35rem;
+      margin-bottom: 0.9rem;
+    }
+    .activity p { margin: 0; font-size: 1.06rem; line-height: 1.65; }
+    strong { color: #1c1c1c; font-weight: 600; }
+    .start {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 2.6rem;
+      background: #0b0d10;
+      color: #fff;
+      border: 0;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      padding: 1.05rem 1.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .start:hover { background: #26292e; }
+    .start:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-    /* livello 1 — il bottone sopra il sito */
+    /* ---------- vista test ---------- */
+    #site { display: none; width: 100vw; height: 100vh; border: 0; }
+    .fab { display: none; }
+    body[data-view="test"] { overflow: hidden; }
+    body[data-view="test"] .intro-wrap { display: none; }
+    body[data-view="test"] #site { display: block; }
+    body[data-view="test"] .fab { display: inline-flex; }
+
     .fab {
       position: fixed;
       top: var(--fab-top);
       left: var(--fab-left);
       z-index: 50;
-      display: inline-flex;
       align-items: center;
       gap: 0.45rem;
       background: #393939;
@@ -57,7 +113,6 @@
     .fab:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     .fab svg { width: 15px; height: 15px; flex: 0 0 15px; }
 
-    /* livello 2 — le istruzioni sopra il bottone */
     .sheet {
       position: fixed;
       top: calc(var(--fab-top) + 46px);
@@ -73,13 +128,8 @@
       padding: 1.4rem 1.5rem 1.6rem;
     }
     .sheet[hidden] { display: none; }
-    .sheet-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 0.9rem;
-    }
-    .counter { font-size: 0.9rem; color: #9a9488; letter-spacing: 1px; }
+    .sheet-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.9rem; }
+    .sheet .counter { font-size: 0.9rem; margin: 0; }
     .close {
       background: none;
       border: 0;
@@ -92,39 +142,16 @@
     }
     .close:hover { color: #1c1c1c; }
     .close:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
-    /* tipografia allineata alla pagina "Caro partecipante" */
-    .sheet h1 {
+    .sheet h2 {
       font-weight: 400;
       font-size: 2.2rem;
       color: var(--ink);
       letter-spacing: 0.5px;
       margin: 0 0 1.3rem;
     }
-    .scenario {
-      background: #e7e9e8;
-      border-radius: 0.8rem;
-      padding: 1.1rem 1.2rem;
-      font-size: 1.06rem;
-      line-height: 1.65;
-      color: #3b3d38;
-      margin-bottom: 1.5rem;
-    }
-    .activity + .activity { border-top: 1px solid var(--rule); margin-top: 1.4rem; padding-top: 1.4rem; }
-    .tag {
-      display: inline-block;
-      background: #e2e4e3;
-      color: #6f6a5e;
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      padding: 0.28rem 0.6rem;
-      border-radius: 0.35rem;
-      margin-bottom: 0.8rem;
-    }
-    .activity p { margin: 0; font-size: 1.06rem; line-height: 1.65; }
-    strong { color: #1c1c1c; font-weight: 600; }
-
-    .cta {
+    .sheet .scenario { padding: 1.1rem 1.2rem; border-radius: 0.8rem; margin-bottom: 1.5rem; }
+    .sheet .activity + .activity { margin-top: 1.4rem; padding-top: 1.4rem; }
+    .back {
       display: block;
       width: 100%;
       margin-top: 1.7rem;
@@ -139,11 +166,25 @@
       letter-spacing: 1.6px;
       cursor: pointer;
     }
-    .cta:hover { background: #26313d; }
-    .cta:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .back:hover { background: #26313d; }
+    .back:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
-<body>
+<body data-view="intro">
+
+  <div class="intro-wrap">
+    <main class="intro">
+      <p class="counter" id="introCounter">1/4</p>
+      <h1 id="introTitle">Task 1</h1>
+      <div id="introContent"></div>
+      <button class="start" id="startBtn">
+        INIZIA IL TASK
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </main>
+  </div>
+
   <iframe id="site" title="Ambiente di test"></iframe>
 
   <button class="fab" id="fab" aria-expanded="false" aria-controls="sheet">
@@ -156,38 +197,47 @@
 
   <div class="sheet" id="sheet" role="dialog" aria-labelledby="sheetTitle" hidden>
     <div class="sheet-head">
-      <span class="counter" id="counter">1/4</span>
+      <span class="counter" id="panelCounter">1/4</span>
       <button class="close" id="closeBtn" aria-label="Chiudi le istruzioni">×</button>
     </div>
-    <h1 id="sheetTitle">Task 1</h1>
-    <div id="content"></div>
-    <button class="cta" id="backBtn">TORNA AL TASK</button>
+    <h2 id="sheetTitle">Task 1</h2>
+    <div id="panelContent"></div>
+    <button class="back" id="backBtn">TORNA AL TASK</button>
   </div>
 
   <script src="tasks.js"></script>
   <script>
-  /* Variante A — tre livelli sovrapposti:
-       0. il sito da testare, a tutta pagina
-       1. il bottone "Istruzioni Task", sopra il sito
-       2. il pannello con le istruzioni, sopra il bottone
-     Il pannello parte chiuso: si apre solo cliccando il bottone.
-     Da usare solo se il sito accetta di essere incorporato. */
+  /* Variante A — si parte dalla schermata istruzioni; "Inizia il task"
+     sostituisce le istruzioni con il sito, che resta in questa scheda
+     dentro un iframe. Sopra galleggia il bottone "Istruzioni Task", che
+     riapre le stesse istruzioni in overlay.
+     Funziona solo se il sito accetta di essere incorporato. */
 
   const params = new URLSearchParams(location.search);
   const task = TASKS[params.get("task")] || TASKS[1];
   const url = params.get("url") || OVERRIDE_URL || task.url;
 
   document.title = task.title + " — Test di usabilità";
-  site.src = url;
 
-  counter.textContent = task.counter;
-  sheetTitle.textContent = task.title;
-  content.innerHTML = `<div class="scenario">${task.scenario}</div>` +
+  const blocks = `<div class="scenario">${task.scenario}</div>` +
     task.activities.map((text, i) => `
       <section class="activity">
         <span class="tag">ATTIVITÀ ${i + 1}</span>
         <p>${text}</p>
       </section>`).join("");
+
+  introCounter.textContent = task.counter;
+  introTitle.textContent = task.title;
+  introContent.innerHTML = blocks;
+  panelCounter.textContent = task.counter;
+  sheetTitle.textContent = task.title;
+  panelContent.innerHTML = blocks;
+
+  startBtn.addEventListener("click", () => {
+    site.src = url;
+    document.body.dataset.view = "test";
+    fab.focus();
+  });
 
   function setOpen(open) {
     sheet.hidden = !open;
