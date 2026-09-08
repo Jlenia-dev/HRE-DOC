@@ -21,10 +21,9 @@ const TASKS = {
     url: "https://esempio.it/ambiente-di-test/pagina-a",
     counter: "1/4",
     title: "Task 1",
-    scenario: "Descrivi qui la situazione di partenza: cosa è appena cambiato nel prodotto e perché la persona si trova a doverci fare qualcosa. Due o tre frasi bastano.",
+    scenario: "Hai bisogno di recuperare un documento relativo a [Nome Cognome]. Sai che si tratta di un [tipo documento], relativo al [mese/anno o data], associato alla banca [nome banca].",
     activities: [
-      "Prima richiesta concreta. Il grassetto si usa per <strong>l'elemento che la persona deve cercare</strong>.",
-      "Seconda richiesta concreta, se serve."
+      "Utilizzando le informazioni a tua disposizione, individua il documento corretto. Verifica tutte le informazioni disponibili per assicurarti che sia quello che stai cercando e, una volta verificato, scaricalo."
     ]
   },
 
