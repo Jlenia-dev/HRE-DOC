@@ -228,12 +228,12 @@
     <p class="tasks-label">Apri un task per iniziare:</p>
 
     <div class="task-row">
-      <a class="task-tile" data-task="1" target="_blank" rel="noopener">
+      <a class="task-tile" data-task="1" data-page="task-tabs.html" target="_blank" rel="noopener">
         <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="label">Task 1</span>
         <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
       </a>
-      <a class="task-tile" data-task="2" target="_blank" rel="noopener">
+      <a class="task-tile" data-task="2" data-page="task-overlay.html" target="_blank" rel="noopener">
         <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="label">Task 2</span>
         <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
@@ -259,10 +259,15 @@
                              incorporato);
        "task-tabs.html"    → le istruzioni restano in una scheda e il
                              sito si apre in una scheda accanto. */
-    const TASK_PAGE = "task-overlay.html";
+    const TASK_PAGE = "task-tabs.html";
+
+    /* Una singola tessera può forzare l'altra variante con
+       data-page="…": ora il task 1 apre la versione a schede e il
+       task 2 quella con l'overlay, così si confrontano al volo.
+       Togli i data-page quando hai deciso quale usare. */
 
     document.querySelectorAll(".task-tile").forEach((tile) => {
-      tile.href = TASK_PAGE + "?task=" + tile.dataset.task;
+      tile.href = (tile.dataset.page || TASK_PAGE) + "?task=" + tile.dataset.task;
       tile.addEventListener("click", () => tile.classList.add("opened"));
     });
   </script>
