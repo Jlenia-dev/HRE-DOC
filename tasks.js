@@ -1,0 +1,66 @@
+/* =========================================================
+   CONTENUTI DEI TASK — è l'unico file da modificare.
+   Lo leggono sia task-overlay.html sia task-tabs.html, quindi
+   i testi si scrivono una volta sola e valgono per entrambe
+   le varianti.
+
+   url        → indirizzo dell'ambiente di test per quel task
+   counter    → indicatore di avanzamento mostrato in alto
+   title      → titolo del task
+   scenario   → il riquadro grigio con la situazione di partenza
+   activities → una voce per ogni ATTIVITÀ; dentro il testo si può
+                usare <strong>…</strong> per i grassetti
+
+   ⚠️ Se il repository è pubblico, tutto quello che scrivi qui è
+   pubblico: indirizzi interni e testi riservati vanno tenuti in un
+   repository privato o inseriti solo al momento del test.
+   ========================================================= */
+
+const TASKS = {
+  1: {
+    url: "https://esempio.it/ambiente-di-test/pagina-a",
+    counter: "1/4",
+    title: "Task 1",
+    scenario: "Descrivi qui la situazione di partenza: cosa è appena cambiato nel prodotto e perché la persona si trova a doverci fare qualcosa. Due o tre frasi bastano.",
+    activities: [
+      "Prima richiesta concreta. Il grassetto si usa per <strong>l'elemento che la persona deve cercare</strong>.",
+      "Seconda richiesta concreta, se serve."
+    ]
+  },
+
+  2: {
+    url: "https://esempio.it/ambiente-di-test/pagina-b",
+    counter: "2/4",
+    title: "Task 2",
+    scenario: "Scrivi qui lo scenario del task 2.",
+    activities: [
+      "Scrivi qui l'attività 1.",
+      "Scrivi qui l'attività 2."
+    ]
+  },
+
+  3: {
+    url: "https://esempio.it/ambiente-di-test/pagina-a",
+    counter: "3/4",
+    title: "Task 3",
+    scenario: "Scrivi qui lo scenario del task 3.",
+    activities: [
+      "Scrivi qui l'attività 1."
+    ]
+  },
+
+  4: {
+    url: "https://esempio.it/ambiente-di-test/pagina-b",
+    counter: "4/4",
+    title: "Task 4",
+    scenario: "Scrivi qui lo scenario del task 4.",
+    activities: [
+      "Scrivi qui l'attività 1."
+    ]
+  }
+};
+
+/* PROVA — questo indirizzo sostituisce quello di tutti i task, così
+   si può vedere il comportamento dell'overlay sopra un sito vero.
+   Rimetti la stringa vuota prima del test con i partecipanti. */
+const OVERRIDE_URL = "https://www.youtube.com/embed/aqz-KE-bpKQ";

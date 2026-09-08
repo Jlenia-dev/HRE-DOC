@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Task — Test di usabilità</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F3F6F7;
+      --ink: #1c1f26;
+      --body: #33352f;
+      --gold: #c0a05a;
+      --muted: #6f6a5e;
+      --rule: #ddd8cc;
+    }
+    * { box-sizing: border-box; }
+    html { font-size: 15px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--body);
+      font-family: "Jost", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: center;
+      padding: 4.5rem 1.5rem 5rem;
+    }
+    .sheet { width: 100%; max-width: 620px; }
+    .counter { font-size: 0.95rem; color: #9a9488; letter-spacing: 1px; margin: 0 0 1.6rem; }
+    h1 {
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      margin: 0 0 2.2rem;
+    }
+    .scenario {
+      background: #e7e9e8;
+      border-radius: 0.9rem;
+      padding: 1.5rem 1.6rem;
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: #3b3d38;
+      margin-bottom: 2.4rem;
+    }
+    .activity + .activity { border-top: 1px solid var(--rule); margin-top: 1.9rem; padding-top: 1.9rem; }
+    .tag {
+      display: inline-block;
+      background: #e2e4e3;
+      color: #6f6a5e;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      padding: 0.28rem 0.6rem;
+      border-radius: 0.35rem;
+      margin-bottom: 0.9rem;
+    }
+    .activity p { margin: 0; font-size: 1.06rem; line-height: 1.65; }
+    strong { color: #1c1c1c; font-weight: 600; }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 2.6rem;
+      background: #0b0d10;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      padding: 1.05rem 1.9rem;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .cta:hover { background: #26292e; }
+    .cta:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .hint { margin: 1.1rem 0 0; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <p class="counter" id="counter">1/4</p>
+    <h1 id="title">Task 1</h1>
+    <div id="content"></div>
+    <a class="cta" id="startBtn" target="_blank" rel="noopener">
+      INIZIA IL TASK
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <p class="hint">Il sito si apre in una scheda a parte: lascia aperta questa, così puoi tornarci quando vuoi rileggere le istruzioni.</p>
+  </main>
+
+  <script src="tasks.js"></script>
+  <script>
+  /* Variante B — l'ambiente non si lascia incorporare.
+     Le istruzioni restano in questa scheda, il sito si apre in una
+     scheda accanto e il partecipante fa avanti e indietro. */
+
+  const params = new URLSearchParams(location.search);
+  const task = TASKS[params.get("task")] || TASKS[1];
+  const url = params.get("url") || OVERRIDE_URL || task.url;
+
+  document.title = task.title + " — Test di usabilità";
+  counter.textContent = task.counter;
+  title.textContent = task.title;
+  startBtn.href = url;
+  content.innerHTML = `<div class="scenario">${task.scenario}</div>` +
+    task.activities.map((text, i) => `
+      <section class="activity">
+        <span class="tag">ATTIVITÀ ${i + 1}</span>
+        <p>${text}</p>
+      </section>`).join("");
+  </script>
+</body>
+</html>
