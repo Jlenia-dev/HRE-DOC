@@ -259,7 +259,7 @@
                              incorporato);
        "task-tabs.html"    → le istruzioni restano in una scheda e il
                              sito si apre in una scheda accanto. */
-    const TASK_PAGE = "task-tabs.html";
+    const TASK_PAGE = "task-overlay.html";
 
     document.querySelectorAll(".task-tile").forEach((tile) => {
       tile.href = TASK_PAGE + "?task=" + tile.dataset.task;
