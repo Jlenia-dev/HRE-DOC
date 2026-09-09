@@ -58,17 +58,31 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
 <hr>
 <p class="tasks-label">Apri un task per iniziare:</p>
 <div class="task-row">
-<a class="task-tile" data-task="1" data-page="task-tabs.html" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 1</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
-<a class="task-tile" data-task="2" data-page="task-overlay.html" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 2</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
+<a class="task-tile" data-task="1" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 1</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
+<a class="task-tile" data-task="2" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 2</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
 <a class="task-tile" data-task="3" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 3</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
 <a class="task-tile" data-task="4" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 4</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
 </div>
 </main>
+<script src="tasks.js"></script>
 <script>
+/* Tutte le tessere aprono la stessa pagina di istruzioni.
+   Allo stesso clic si apre anche il questionario, in una scheda accanto:
+   resta lì, da compilare quando il task è finito. Il questionario si apre
+   per primo, così la scheda che rimane davanti è quella delle istruzioni.
+   Una scheda per task (nome "questionario-1", "questionario-2", …): se si
+   riapre lo stesso task, il browser riusa la scheda già aperta invece di
+   aggiungerne una nuova. */
 const TASK_PAGE = "task-tabs.html";
+
 document.querySelectorAll(".task-tile").forEach((tile) => {
-  tile.href = (tile.dataset.page || TASK_PAGE) + "?task=" + tile.dataset.task;
-  tile.addEventListener("click", () => tile.classList.add("opened"));
+  const n = tile.dataset.task;
+  tile.href = TASK_PAGE + "?task=" + n;
+  tile.addEventListener("click", () => {
+    const survey = (TASKS[n] && TASKS[n].survey) || QUESTIONARIO_URL;
+    if (survey) window.open(survey, "questionario-" + n);
+    tile.classList.add("opened");
+  });
 });
 </script>
 </body>
