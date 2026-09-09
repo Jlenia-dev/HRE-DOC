@@ -86,6 +86,28 @@
     .survey a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
     .survey a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     .survey[hidden] { display: none; }
+
+    /* pulsante terziario per il questionario */
+    .survey-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: 0.8rem;
+      margin-top: 2.6rem;
+      background: transparent;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.72rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: background 0.12s, color 0.12s;
+    }
+    .survey-btn:hover { background: rgba(0,0,0,0.04); color: var(--ink); }
+    .survey-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .survey-btn svg { opacity: 0.95; }
+
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
@@ -94,12 +116,22 @@
     <p class="counter" id="counter">1/5</p>
     <h1 id="title">Task 1</h1>
     <div id="content"></div>
-    <a class="cta" id="startBtn" target="_blank" rel="noopener">
-      INIZIA IL TASK
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline><polyline points="15 18 21 12 15 6"></polyline></svg>
-    </a>
+
+    <div style="display:flex;align-items:center;flex-wrap:wrap;">
+      <a class="cta" id="startBtn" target="_blank" rel="noopener noreferrer">
+        INIZIA IL TASK
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+
+      <!-- pulsante terziario per aprire il questionario (inizialmente nascosto) -->
+      <a class="survey-btn" id="surveyBtn" target="_blank" rel="noopener noreferrer" hidden aria-label="Compila questionario">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="18" rx="2"></rect><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="12" x2="11" y2="12"></line></svg>
+        Compila questionario
+      </a>
+    </div>
+
     <p class="hint">Il sito si apre in una scheda a parte: lascia aperta questa, così puoi tornarvi quando vuoi rileggere le istruzioni.</p>
-    <p class="survey" id="surveyLine" hidden>Quando hai finito il task, compila il <a id="surveyLink" target="_blank" rel="noopener">questionario</a>: dovresti già averlo aperto in una scheda accanto.</p>
+    <p class="survey" id="surveyLine" hidden>Quando hai finito il task, compila il <a id="surveyLink" target="_blank" rel="noopener noreferrer">questionario</a>: dovresti già averlo aperto in una scheda accanto.</p>
   </main>
 
   <script src="tasks.js"></script>
@@ -112,30 +144,40 @@
   const task = TASKS[params.get("task")] || TASKS[1];
   const url = params.get("url") || OVERRIDE_URL || task.url;
 
+  // elementi
+  const counterEl = document.getElementById('counter');
+  const titleEl = document.getElementById('title');
+  const contentEl = document.getElementById('content');
+  const startBtn = document.getElementById('startBtn');
+  const surveyBtn = document.getElementById('surveyBtn');
+  const surveyLink = document.getElementById('surveyLink');
+  const surveyLine = document.getElementById('surveyLine');
+
   document.title = task.title + " — Test di usabilità";
-  counter.textContent = task.counter;
-  title.textContent = task.title;
+  counterEl.textContent = task.counter;
+  titleEl.textContent = task.title;
   startBtn.href = url;
 
-  /* Il questionario si apre da solo insieme al task. Questo collegamento
-     serve se il browser ha bloccato la seconda scheda, o se la persona la
-     chiude per sbaglio. */
+  /* Il questionario non si apre automaticamente insieme al task: lo lasciamo
+     all'azione esplicita dell'utente tramite il pulsante "Compila questionario". */
   const survey = task.survey || (typeof QUESTIONARIO_URL !== "undefined" ? QUESTIONARIO_URL : "");
   if (survey) {
     surveyLink.href = survey;
     surveyLine.hidden = false;
-    
-    /* Apri il questionario in background quando viene cliccato "INIZIA IL TASK" */
-    startBtn.addEventListener("click", function(e) {
-      window.open(survey, "survey_tab");
-    });
+
+    // mostra e configura il pulsante terziario del questionario
+    surveyBtn.href = survey;
+    surveyBtn.hidden = false;
+
+    // NON apriamo il questionario automaticamente al click su INIZIA IL TASK
+    // (se vuoi aprirlo in background, gli utenti aziendali con blocco popup potrebbero impedirlo)
   }
-  
+
   /* activities accetta una stringa o un elenco: con una sola attività
      l'etichetta resta "ATTIVITÀ", con due o più vengono numerate. */
   const activities = [].concat(task.activities || []);
 
-  content.innerHTML = `<div class="scenario">${task.scenario}</div>` +
+  contentEl.innerHTML = `<div class="scenario">${task.scenario}</div>` +
     activities.map((text, i) => `
       <section class="activity">
         <span class="tag">ATTIVITÀ${activities.length > 1 ? " " + (i + 1) : ""}</span>
