@@ -23,7 +23,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
 .note{color:var(--ink);font-weight:600;line-height:1.6;margin:0 0 2.2rem}
 .thanks{font-size:1.02rem;margin:0 0 2.8rem}
 .task-row{display:flex;gap:.75rem;max-width:680px;flex-wrap:wrap}
-.task-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-radius:1rem;border:1px solid rgba(0,0,0,.1);background:#fff;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06);flex:1 1 calc(20% - .6rem);min-height:130px;cursor:pointer;text-decoration:none;transition:box-shadow .2s,transform .2s}
+.task-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-radius:1rem;border:1px solid rgba(0,0,0,.1);background:#fff;padding:1.25rem;box-shadow:0 1px 0 rgba(0,0,0,.02)}
 .task-tile:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
 .task-tile:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .task-tile::before{content:'';position:absolute;top:0;right:0;width:3.5rem;height:3.5rem;border-bottom-left-radius:1.5rem;background:rgba(0,0,0,.05);transition:width .2s,height .2s}
@@ -49,7 +49,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
 <ol>
 <li><span>Non serve alcuna preparazione: ti guideremo passo passo.</span></li>
 <li><span>Ricordati di <strong>commentare ad alta voce</strong> tutti i passaggi che fai.</span></li>
-<li><span>Il test si svolge su ambiente di test: non preoccuparti se i dati che vedrai non saranno del tutto reali. Saranno comunque sufficienti a portare a termine ciascun task e a raccogliere i tuoi pensieri al riguardo.</span></li>
+<li><span>Il test si svolge su ambiente di test: non preoccuparti se i dati che vedrai non saranno del tutto reali. Saranno comunque sufficienti a portare a termine ciascun task e a raccogliere i dati necessari.</span></li>
 <li><span>Puoi rileggere le <strong>istruzioni del task</strong> in qualsiasi momento, anche mentre lo stai svolgendo.</span></li>
 </ol>
 <hr>
@@ -58,30 +58,26 @@ hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
 <hr>
 <p class="tasks-label">Apri un task per iniziare:</p>
 <div class="task-row">
-<a class="task-tile" data-task="1" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 1</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
-<a class="task-tile" data-task="2" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 2</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
-<a class="task-tile" data-task="3" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 3</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
-<a class="task-tile" data-task="4" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 4</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
-<a class="task-tile" data-task="5" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span><span class="label">Task 5</span><span class="task-check"><span class="check-icon">✓</span> Aperto</span></a>
+<a class="task-tile" data-task="1" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><span class="label">Task 1<span class="task-check"> — pronto</span></span></a>
+<a class="task-tile" data-task="2" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><span class="label">Task 2<span class="task-check"> — pronto</span></span></a>
+<a class="task-tile" data-task="3" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><span class="label">Task 3<span class="task-check"> — pronto</span></span></a>
+<a class="task-tile" data-task="4" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><span class="label">Task 4<span class="task-check"> — pronto</span></span></a>
+<a class="task-tile" data-task="5" target="_blank" rel="noopener"><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><span class="label">Task 5<span class="task-check"> — pronto</span></span></a>
 </div>
 </main>
 <script src="tasks.js"></script>
 <script>
 /* Tutte le tessere aprono la stessa pagina di istruzioni.
-   Allo stesso clic si apre anche il questionario, in una scheda accanto:
-   resta lì, da compilare quando il task è finito. Il questionario si apre
-   per primo, così la scheda che rimane davanti è quella delle istruzioni.
-   Una scheda per task (nome "questionario-1", "questionario-2", …): se si
-   riapre lo stesso task, il browser riusa la scheda già aperta invece di
-   aggiungerne una nuova. */
+   Non apriamo più automaticamente il questionario (azienda blocca i popup).
+   Il questionario può essere aperto dall'interno della pagina del task cliccando
+   sul bottone "Compila questionario". */
 const TASK_PAGE = "task-tabs.html";
 
 document.querySelectorAll(".task-tile").forEach((tile) => {
   const n = tile.dataset.task;
   tile.href = TASK_PAGE + "?task=" + n;
   tile.addEventListener("click", () => {
-    const survey = (TASKS[n] && TASKS[n].survey) || QUESTIONARIO_URL;
-    if (survey) window.open(survey, "questionario-" + n);
+    // Non apriamo più il questionario qui (evitiamo popup bloccati dall'azienda)
     tile.classList.add("opened");
   });
 });
