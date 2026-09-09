@@ -99,12 +99,6 @@
     }
     .hint svg { flex: 0 0 auto; margin-top: 2px; color: var(--muted); }
     .hint .text { color: var(--muted); margin: 0; }
-    .survey { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
-    .survey a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-    .survey a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-    .survey[hidden] { display: none; }
-
-    /* pulsante terziario per il questionario */
     .survey-btn {
       display: inline-flex;
       align-items: center;
@@ -155,6 +149,7 @@
       </svg>
       <p class="text">Il task si aprirà in una nuova scheda del browser; lascia aperta questa scheda per poter tornare e rileggere le istruzioni quando vuoi.</p>
     </div>
+
   </main>
 
   <script src="tasks.js"></script>
@@ -173,8 +168,6 @@
   const contentEl = document.getElementById('content');
   const startBtn = document.getElementById('startBtn');
   const surveyBtn = document.getElementById('surveyBtn');
-  const surveyLink = document.getElementById('surveyLink');
-  const surveyLine = document.getElementById('surveyLine');
 
   document.title = task.title + " — Test di usabilità";
   counterEl.textContent = task.counter;
@@ -185,15 +178,9 @@
      all'azione esplicita dell'utente tramite il pulsante "Compila questionario". */
   const survey = task.survey || (typeof QUESTIONARIO_URL !== "undefined" ? QUESTIONARIO_URL : "");
   if (survey) {
-    surveyLink.href = survey;
-    surveyLine.hidden = false;
-
     // mostra e configura il pulsante terziario del questionario
     surveyBtn.href = survey;
     surveyBtn.hidden = false;
-
-    // NON apriamo il questionario automaticamente al click su INIZIA IL TASK
-    // (se vuoi aprirlo in background, gli utenti aziendali con blocco popup potrebbero impedirlo)
   }
 
   /* activities accetta una stringa o un elenco: con una sola attività
