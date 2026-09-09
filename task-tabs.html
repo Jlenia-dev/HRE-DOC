@@ -96,9 +96,9 @@
     <div id="content"></div>
     <a class="cta" id="startBtn" target="_blank" rel="noopener">
       INIZIA IL TASK
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline><polyline points="15 18 21 12 15 6"></polyline></svg>
     </a>
-    <p class="hint">Il sito si apre in una scheda a parte: lascia aperta questa, così puoi tornarci quando vuoi rileggere le istruzioni.</p>
+    <p class="hint">Il sito si apre in una scheda a parte: lascia aperta questa, così puoi tornarvi quando vuoi rileggere le istruzioni.</p>
     <p class="survey" id="surveyLine" hidden>Quando hai finito il task, compila il <a id="surveyLink" target="_blank" rel="noopener">questionario</a>: dovresti già averlo aperto in una scheda accanto.</p>
   </main>
 
@@ -124,7 +124,13 @@
   if (survey) {
     surveyLink.href = survey;
     surveyLine.hidden = false;
+    
+    /* Apri il questionario in background quando viene cliccato "INIZIA IL TASK" */
+    startBtn.addEventListener("click", function(e) {
+      window.open(survey, "survey_tab");
+    });
   }
+  
   /* activities accetta una stringa o un elenco: con una sola attività
      l'etichetta resta "ATTIVITÀ", con due o più vengono numerate. */
   const activities = [].concat(task.activities || []);
